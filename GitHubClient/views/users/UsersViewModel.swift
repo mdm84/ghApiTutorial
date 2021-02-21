@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SafariServices
 
 final class UsersViewModel: GHViewModel {
   private var users: [User] = []
@@ -15,7 +16,7 @@ final class UsersViewModel: GHViewModel {
   private var selectedUser: User?
   private var searchUserActive: Bool = false
   private var searchReposActive: Bool = false
-
+  
   var rows: Int {
     searchUserActive ? filteredUser.count : users.count
   }
@@ -29,15 +30,15 @@ final class UsersViewModel: GHViewModel {
   func getUser(by index: Int) -> User {
     searchUserActive ? filteredUser[index] : users[index]
   }
-  
   func getRepo(by index: Int) -> Repo {
     searchReposActive ? filteredRepos[index] : repos[index]
   }
-  
   func getSelectedUserInfo() -> User? {
     return selectedUser
   }
-  
+  func unselectUser() {
+    selectedUser = nil
+  }
   func getUsersList(completion: @escaping(NetworkError?)->Void) {
     getGeneralUserList { response in
       switch response {
@@ -76,17 +77,6 @@ final class UsersViewModel: GHViewModel {
       }
     }
   }
-  private func getGeneralUserList(completion: @escaping(Result<[UserOverview],NetworkError>)->Void) {
-    apiManager.users { response in
-      completion(response)
-    }
-  }
-  private func getUser(by username: String, completion: @escaping(Result<User, NetworkError>)->Void) {
-    apiManager.userDetail(by: username) { response in
-      completion(response)
-    }
-  }
-  
   func evalUserSearch(_ value: String = "", completion: @escaping()->Void) {
     filteredUser = value.count == 0
       ? users
@@ -112,7 +102,25 @@ final class UsersViewModel: GHViewModel {
     detail.set(viewModel: self)
     return detail
   }
-  func unselectUser() {
-    selectedUser = nil
+  func toGithubRepoPage(index: Int, delegate: SFSafariViewControllerDelegate)-> SFSafariViewController? {
+    let repo = getRepo(by: index)
+    guard let url = URL(string: repo.url ?? "") else { return nil}
+    let safariVC = SFSafariViewController(url: url)
+    safariVC.delegate = delegate
+    safariVC.preferredBarTintColor = .blue
+    safariVC.preferredControlTintColor = .white
+    return safariVC
   }
+  
+  private func getGeneralUserList(completion: @escaping(Result<[UserOverview],NetworkError>)->Void) {
+    apiManager.users { response in
+      completion(response)
+    }
+  }
+  private func getUser(by username: String, completion: @escaping(Result<User, NetworkError>)->Void) {
+    apiManager.userDetail(by: username) { response in
+      completion(response)
+    }
+  }
+  
 }

@@ -14,6 +14,7 @@ struct Repo: Codable{
   let fullname: String
   let forkCount: Int
   let starGazersCount: Int
+  let url: String?
   
   enum CodingKeys: String, CodingKey {
     case id
@@ -22,5 +23,6 @@ struct Repo: Codable{
     case fullname = "full_name"
     case forkCount = "forks_count"
     case starGazersCount = "stargazers_count"
+    case url = "html_url"
   }
 }

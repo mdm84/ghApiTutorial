@@ -103,34 +103,44 @@
                                     </label>
                                 </subviews>
                             </stackView>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Fmc-fA-maZ">
-                                <rect key="frame" x="0.0" y="196" width="414" height="56"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="j6P-My-YrF">
-                                <rect key="frame" x="0.0" y="252" width="414" height="610"/>
+                                <rect key="frame" x="0.0" y="277.5" width="414" height="584.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="Y5V-eN-wXx">
+                                <rect key="frame" x="16" y="186" width="382" height="19.5"/>
+                                <fontDescription key="fontDescription" type="italicSystem" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Fmc-fA-maZ">
+                                <rect key="frame" x="0.0" y="221.5" width="414" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="V6d-Bs-89c"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="9Ng-YA-3JD" firstAttribute="top" secondItem="V6d-Bs-89c" secondAttribute="top" constant="16" id="0N7-e4-xKO"/>
                             <constraint firstItem="j6P-My-YrF" firstAttribute="top" secondItem="Fmc-fA-maZ" secondAttribute="bottom" id="591-Lx-wfs"/>
+                            <constraint firstItem="Y5V-eN-wXx" firstAttribute="top" secondItem="9Ng-YA-3JD" secondAttribute="bottom" constant="6" id="8MP-uo-5hQ"/>
+                            <constraint firstItem="Y5V-eN-wXx" firstAttribute="leading" secondItem="V6d-Bs-89c" secondAttribute="leading" constant="16" id="9KW-U7-3qD"/>
                             <constraint firstItem="V6d-Bs-89c" firstAttribute="trailing" secondItem="Fmc-fA-maZ" secondAttribute="trailing" id="EZa-UF-RTw"/>
                             <constraint firstItem="9Ng-YA-3JD" firstAttribute="leading" secondItem="V6d-Bs-89c" secondAttribute="leading" constant="16" id="GCy-Uw-4et"/>
+                            <constraint firstItem="V6d-Bs-89c" firstAttribute="trailing" secondItem="Y5V-eN-wXx" secondAttribute="trailing" constant="16" id="J8H-FX-3ch"/>
                             <constraint firstItem="V6d-Bs-89c" firstAttribute="trailing" secondItem="j6P-My-YrF" secondAttribute="trailing" id="JLR-Av-mza"/>
                             <constraint firstItem="V6d-Bs-89c" firstAttribute="bottom" secondItem="j6P-My-YrF" secondAttribute="bottom" id="Lq4-Ay-LrR"/>
                             <constraint firstItem="j6P-My-YrF" firstAttribute="leading" secondItem="V6d-Bs-89c" secondAttribute="leading" id="QYD-1A-PNN"/>
-                            <constraint firstItem="Fmc-fA-maZ" firstAttribute="top" secondItem="9Ng-YA-3JD" secondAttribute="bottom" constant="16" id="Qnc-aQ-FZE"/>
                             <constraint firstItem="QrE-OS-Mcm" firstAttribute="leading" secondItem="9Ng-YA-3JD" secondAttribute="trailing" constant="16" id="TgY-X2-FUu"/>
                             <constraint firstItem="Fmc-fA-maZ" firstAttribute="leading" secondItem="9o8-d7-d6f" secondAttribute="leading" id="Tlj-iG-Nb1"/>
                             <constraint firstItem="V6d-Bs-89c" firstAttribute="trailing" secondItem="QrE-OS-Mcm" secondAttribute="trailing" constant="16" id="fe7-8P-rNL"/>
+                            <constraint firstItem="Fmc-fA-maZ" firstAttribute="top" secondItem="Y5V-eN-wXx" secondAttribute="bottom" constant="16" id="j6s-cv-2Yo"/>
                             <constraint firstItem="QrE-OS-Mcm" firstAttribute="top" secondItem="V6d-Bs-89c" secondAttribute="top" constant="16" id="qMn-8q-Cqv"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="avatar" destination="9Ng-YA-3JD" id="fUR-8J-6ZU"/>
+                        <outlet property="bio" destination="Y5V-eN-wXx" id="ZKD-Oo-OFO"/>
                         <outlet property="email" destination="B1B-gX-CiM" id="vk8-xP-V2H"/>
                         <outlet property="followers" destination="xHa-kc-BxQ" id="G99-Ns-uh9"/>
                         <outlet property="following" destination="PbK-fQ-gne" id="0qT-ak-obK"/>
@@ -143,7 +153,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WPL-ra-7Bk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1616" y="33"/>
+            <point key="canvasLocation" x="1615.9420289855075" y="32.8125"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="6jS-Zh-cXK">

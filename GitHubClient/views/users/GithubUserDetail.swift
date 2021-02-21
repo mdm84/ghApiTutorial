@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class GithubUserDetail: UIViewController {
   @IBOutlet private weak var avatar: UIImageView!
@@ -15,6 +16,7 @@ class GithubUserDetail: UIViewController {
   @IBOutlet private weak var joindate: UILabel!
   @IBOutlet private weak var followers: UILabel!
   @IBOutlet private weak var following: UILabel!
+  @IBOutlet private weak var bio: UILabel!
   @IBOutlet weak var tableView: UITableView! {
     didSet {
       tableView.delegate = self
@@ -56,6 +58,7 @@ class GithubUserDetail: UIViewController {
     joindate.text = user.createdAt
     followers.text = "\(user.followers ?? 0) Followers"
     following.text = "Following \(user.following ?? 0)"
+    bio.text = user.bio
     if let url = URL(string:  user.avatarUrl ?? "") {
       self.avatar.loadImage(at: url, with: true)
     } else {
@@ -84,6 +87,11 @@ extension GithubUserDetail: UITableViewDelegate & UITableViewDataSource {
     cell.repo = viewModel.getRepo(by: indexPath.row)
     return cell
   }
+  
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    guard let controller = viewModel.toGithubRepoPage(index: indexPath.row, delegate: self) else { return }
+    self.present(controller, animated: true, completion: nil)
+  }
 }
 
 extension GithubUserDetail: UISearchBarDelegate {
@@ -108,5 +116,11 @@ extension GithubUserDetail: UISearchBarDelegate {
     viewModel.evalRepoSearch(searchBar.text ?? "") {
       self.update()
     }
+  }
+}
+
+extension GithubUserDetail: SFSafariViewControllerDelegate {
+  func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+    controller.dismiss(animated: true, completion: nil)
   }
 }
