@@ -20,4 +20,13 @@ extension String {
     }
     return data.base64EncodedString(options: Data.Base64EncodingOptions(rawValue: 0))
   }
+  var localDateFormat: String {
+    let formatter: DateFormatter = DateFormatter()
+    formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+    guard let timeZoneDate = formatter.date(from: self) else { return "-" }
+    let current = TimeZone.current
+    formatter.timeZone = current
+    formatter.dateFormat = "yyyy-MM-dd HH:mm"
+    return formatter.string(from: timeZoneDate)
+  }
 }

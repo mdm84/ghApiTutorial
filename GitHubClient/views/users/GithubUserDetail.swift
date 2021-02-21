@@ -55,7 +55,7 @@ class GithubUserDetail: UIViewController {
     username.text = user.login
     email.text = user.email
     location.text = user.location
-    joindate.text = user.createdAt
+    joindate.text = user.createdAt?.localDateFormat
     followers.text = "\(user.followers ?? 0) Followers"
     following.text = "Following \(user.following ?? 0)"
     bio.text = user.bio
