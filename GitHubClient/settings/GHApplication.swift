@@ -10,6 +10,7 @@ import Foundation
 final class GHApplication {
   static let shared = GHApplication()
   private let auth = Authentication(username: "maxInterview2021", password: "githubInterview2021")
+  private let githubToken = "4a2ba39158173896f4b271bf2e2a1cee29d5cb60"
   lazy var appUserDefaults = UserDefaults.standard
   private var _urlSession: URLSession?
   var urlSession: URLSession {

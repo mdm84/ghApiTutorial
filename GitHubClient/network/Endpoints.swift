@@ -10,6 +10,8 @@ import Foundation
 enum Endpoints {
   case user
   case users
+  case userDetail(String)
+  case repos(String)
 
   var prodString: String {
     return "https://api.github.com"
@@ -22,6 +24,8 @@ enum Endpoints {
     switch self {
     case .user: return "/user"
     case .users: return "/users"
+    case .userDetail(let username): return "/users/\(username)"
+    case .repos(let username): return "/users/" + username + "/repos"
     }
   }
   var apiV3: URL {

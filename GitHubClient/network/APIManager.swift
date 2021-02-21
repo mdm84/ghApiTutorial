@@ -8,36 +8,31 @@
 import Foundation
 
 class APIManager: APIServiceRequest {
-  func getAccessToken(clientID: String, clientSecret: String, code: String, redirectURL: String, completion: @escaping(AccessTokenResponse?, Error?) -> Void) {
-    let url = "https://github.com/login/oauth/access_token"
-    
-    var parameters = [String : String]()
-    parameters[Parameters.clientID.rawValue] = clientID
-    parameters[Parameters.clientSecret.rawValue] = clientSecret
-    parameters[Parameters.code.rawValue] = code
-    parameters[Parameters.redirectURL.rawValue] = redirectURL
-    
-    var headers = [String : String]()
-    headers["Accept"] = "application/json"
-    
-    self.get(url: url, parameters: parameters, headers: headers) { (data, _, error) in
-      if let data = data {
-        do {
-          let model = try JSONDecoder().decode(AccessTokenResponse.self, from: data)
-          completion(model, error)
-        } catch {
-          completion(nil, error)
-        }
-      } else {
-        completion(nil, error)
+  func users(completion: @escaping(Result<[UserOverview],NetworkError>)->Void) {
+    let apiURL = Endpoints.users.apiV3
+    let body: [String: String]? = nil
+    let responseBuilder: ResponseBuilder<[UserOverview]> = ResponseBuilder(url: apiURL.absoluteString)
+    execute(url: apiURL, parameter: body, headers: [:]) { (d, r, e) in
+      responseBuilder.processRequestResponse(data: d, response: r, error: e) { response in
+        completion(response)
       }
     }
   }
-  func users(completion: @escaping(Result<GenericResponse<[User]>,NetworkError>)->Void) {
-    let apiURL = Endpoints.user.apiV3
+  func userDetail(by username: String, completion: @escaping(Result<User,NetworkError>)->Void) {
+    let apiURL = Endpoints.userDetail(username).apiV3
     let body: [String: String]? = nil
-    let responseBuilder: ResponseBuilder<GenericResponse<[User]>> = ResponseBuilder(url: apiURL.absoluteString)
-    execute(method: .post, cookie: true, url: apiURL, parameter: body, headers: [:]) { (d, r, e) in
+    let responseBuilder: ResponseBuilder<User> = ResponseBuilder(url: apiURL.absoluteString)
+    execute(url: apiURL, parameter: body, headers: [:]) { (d, r, e) in
+      responseBuilder.processRequestResponse(data: d, response: r, error: e) { response in
+        completion(response)
+      }
+    }
+  }
+  func repos(by username: String, completion: @escaping(Result<[Repo], NetworkError>)->Void) {
+    let apiURL = Endpoints.repos(username).apiV3
+    let body: [String: String]? = nil
+    let responseBuilder: ResponseBuilder<[Repo]> = ResponseBuilder(url: apiURL.absoluteString)
+    execute(url: apiURL, parameter: body, headers: [:]) { (d, r, e) in
       responseBuilder.processRequestResponse(data: d, response: r, error: e) { response in
         completion(response)
       }

@@ -9,7 +9,7 @@ import Foundation
 
 struct GenericResponse<T:Codable>: Codable {
   let message: String?
-  let errors: [GHErrors]
+  let errors: [GHErrors]?
 }
 
 struct GHErrors: Codable {
